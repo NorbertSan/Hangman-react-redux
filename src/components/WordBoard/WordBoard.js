@@ -1,7 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
-import { fetchWord } from "actions/letterActions";
 import styled from "styled-components";
 import Ceil from "components/Ceil/Ceil";
 
@@ -17,35 +16,34 @@ const StyledWrapper = styled.div`
   margin: auto;
 `;
 
-class WordBoard extends React.Component {
-  componentDidMount() {
-    this.props.fetchWord();
-  }
-
-  render() {
-    const word = this.props.word;
-    let wordArr;
-    if (word) wordArr = word.split("");
-    return (
-      <>
-        {wordArr && (
-          <StyledWrapper length={wordArr.length}>
-            {wordArr.map((letter, index) => (
-              <Ceil key={`${index}:${letter}`}>{letter}</Ceil>
-            ))}
-          </StyledWrapper>
-        )}
-      </>
-    );
-  }
-}
+const WordBoard = ({ word, hittedLetters }) => {
+  let wordArr;
+  if (word) wordArr = word.split("");
+  return (
+    <>
+      {wordArr && (
+        <StyledWrapper length={wordArr.length}>
+          {wordArr.map((letter, index) => (
+            <Ceil
+              hit={hittedLetters.includes(letter)}
+              key={`${index}:${letter}`}
+            >
+              {letter}
+            </Ceil>
+          ))}
+        </StyledWrapper>
+      )}
+    </>
+  );
+};
 
 WordBoard.propTypes = {
   word: PropTypes.string
 };
 
 const mapStateToProps = state => ({
-  word: state.letters.word
+  word: state.hangman.word,
+  hittedLetters: state.hangman.hitLetters
 });
 
-export default connect(mapStateToProps, { fetchWord })(WordBoard);
+export default connect(mapStateToProps)(WordBoard);

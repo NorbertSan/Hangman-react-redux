@@ -8,7 +8,7 @@ const StyledCeil = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 3rem;
+  font-size: 0;
   height: 80px;
   margin: 3px;
   transition: all 0.2s ease-in-out;
@@ -16,15 +16,15 @@ const StyledCeil = styled.div`
   background: ${({ inactiveCeil }) => theme.inactiveCeil};
   color: ${({ activeCeil }) => theme.activeCeil};
   text-transform: uppercase;
-  ${({ aa }) =>
-    aa &&
+  ${({ hit }) =>
+    hit &&
     css`
-      background: red;
+      font-size: 3rem;
     `};
 `;
 
-const Ceil = ({ children }) => {
-  return <StyledCeil>{children}</StyledCeil>;
+const Ceil = ({ children, hit }) => {
+  return <StyledCeil hit={hit}>{children}</StyledCeil>;
 };
 
 const mapStateToProps = state => ({

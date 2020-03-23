@@ -1,10 +1,11 @@
 import React from "react";
 import theme from "theme/theme";
+import { connect } from "react-redux";
 import styled from "styled-components";
+import PropTypes from "prop-types";
 import MissedLetter from "components/MissedLetter/MissedLetter";
 
 const StyledWrapper = styled.div``;
-const missedLetterArr = ["a", "b", "c", "d", "e", "f", "h", "y"];
 
 const StyledInfo = styled.h3`
   text-transform: uppercase;
@@ -20,15 +21,23 @@ const StyledBoard = styled.div`
   justify-content: flex-start;
 `;
 
-const MissedBoard = ({ children }) => (
+const MissedBoard = ({ children, missedLetters }) => (
   <StyledWrapper>
     <StyledInfo>you missed :</StyledInfo>
     <StyledBoard>
-      {missedLetterArr.map((letter, index) => (
+      {missedLetters.map((letter, index) => (
         <MissedLetter key={`Missed ${index}.${letter}`}>{letter}</MissedLetter>
       ))}
     </StyledBoard>
   </StyledWrapper>
 );
 
-export default MissedBoard;
+MissedBoard.propTypes = {
+  missedLetters: PropTypes.array.isRequired
+};
+
+const mapStateToProps = state => ({
+  missedLetters: state.hangman.missedLetters
+});
+
+export default connect(mapStateToProps)(MissedBoard);
