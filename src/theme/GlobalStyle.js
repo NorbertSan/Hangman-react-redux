@@ -2,7 +2,7 @@ import { createGlobalStyle } from "styled-components";
 import theme from "./theme";
 
 const GlobalStyle = createGlobalStyle`
-    @import url('https://fonts.googleapis.com/css?family=Montserrat&display=swap');
+    @import url('https://fonts.googleapis.com/css?family=Montserrat:400,800&display=swap');
     *,*::after,*::before{
         box-sizing:border-box;
     }
