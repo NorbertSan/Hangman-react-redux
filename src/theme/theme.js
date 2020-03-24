@@ -12,7 +12,12 @@ const theme = {
   headColor: "#fccc8d",
   blueishColor: "#4e6ef6",
   inactiveCeil: "#e4e6e4",
-  activeCeil: "#51545A"
+  activeCeil: "#51545A",
+  mediaQueries: {
+    tablet: "1024px",
+    smartphone: "724px",
+    smartphoneMedium: "500px"
+  }
 };
 
 export default theme;

@@ -8,6 +8,10 @@ const StyledMissedLetter = styled.div`
   padding: 5px;
   text-transform: uppercase;
   color: ${({ blueishColor }) => theme.blueishColor};
+  @media screen and (max-width: ${({ mediaQueries }) =>
+      theme.mediaQueries.smartphoneMedium}) {
+    font-size: 2rem;
+  }
 `;
 
 const MissedLetter = ({ children }) => (

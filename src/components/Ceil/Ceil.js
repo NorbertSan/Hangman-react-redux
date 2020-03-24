@@ -26,6 +26,19 @@ const StyledCeil = styled.div`
     css`
       font-size: 3rem;
     `};
+
+  @media screen and (max-width: ${({ mediaQueries }) =>
+      theme.mediaQueries.smartphone}) {
+    width: 60px;
+    height: 60px;
+    margin: 5px;
+  }
+  @media screen and (max-width: ${({ mediaQueries }) =>
+      theme.mediaQueries.smartphoneMedium}) {
+    width: 40px;
+    height: 40px;
+    margin: 3px;
+  }
 `;
 
 const Ceil = ({ children, hit, invert }) => {

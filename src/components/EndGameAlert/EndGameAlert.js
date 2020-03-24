@@ -17,16 +17,24 @@ const StyledWrapper = styled.div`
   left: 50%;
   transform: translate(-50%, -50%);
   width: 500px;
-  height: 350px;
+  min-height: 350px;
   z-index: 1;
   border-radius: 10px;
   background: ${({ whiteColor }) => theme.whiteColor};
   padding: 30px;
   box-shadow: 0px 0px 2px ${({ whiteColor }) => theme.whiteColor};
+  @media screen and (max-width: ${({ mediaQueries }) =>
+      theme.mediaQueries.smartphone}) {
+    width: 400px;
+  }
 `;
 const StyledTitle = styled(Title)`
   font-size: 3.2rem;
   margin-bottom: 0;
+  @media screen and (max-width: ${({ mediaQueries }) =>
+      theme.mediaQueries.smartphone}) {
+    font-size: 2.2rem;
+  }
 `;
 const StyledParagraph = styled.p`
   font-weight: 600;

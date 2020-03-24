@@ -8,6 +8,11 @@ const StyledWrapper = styled.div`
   width: 250px;
   position: relative;
   z-index: 9;
+  transform-origin: left top;
+  @media screen and (max-width: ${({ mediaQueries }) =>
+      theme.mediaQueries.smartphone}) {
+    transform: scale(0.8);
+  }
 `;
 const StyledStick = styled.div`
   position: absolute;
@@ -100,14 +105,13 @@ const StyledNeck = styled.div`
   z-index: -1;
   &:after {
     content: "";
-    border-radius:40%;
-    border-bottom:2px solid ${({ greishColor }) => theme.greishColor};
+    border-radius: 40%;
+    border-bottom: 2px solid ${({ greishColor }) => theme.greishColor};
     position: absolute;
     width: 100%;
     height: 10px;
     top: -5px;
     left: 0;
-    /* background: ${({ greishColor }) => theme.greishColor}; */
   }
 `;
 const StyledTorso = styled.div`

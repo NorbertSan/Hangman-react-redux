@@ -11,9 +11,8 @@ const StyledWrapper = styled.div`
   align-items: center;
   z-index: 999;
   height: 100%;
-  justify-content: flex-start;
   width: 90%;
-  margin: auto;
+  margin: 0 auto;
 `;
 
 const WordBoard = ({ word, hittedLetters }) => {

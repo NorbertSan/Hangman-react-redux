@@ -27,6 +27,18 @@ const StyledWrapper = styled.div`
     css`
       opacity: 0.2;
     `}
+  @media screen and (max-width:${({ mediaQueries }) =>
+    theme.mediaQueries.tablet}){
+    width:90vw;
+    height:80vh;
+    grid-template-rows: 60% 40%;
+  }
+  @media screen and (max-width:${({ mediaQueries }) =>
+    theme.mediaQueries.smartphoneMedium}){
+      padding:30px 0;
+    width:100vw;
+    height:100vh;
+  }
 `;
 const StyledInnerWrapper = styled.div`
   display: grid;
