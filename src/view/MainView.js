@@ -1,17 +1,17 @@
 import React from "react";
-import GlobalStyle from "theme/GlobalStyle";
-import { Provider, connect } from "react-redux";
-import store from "store";
-import styled from "styled-components";
+import { connect } from "react-redux";
+import styled, { css } from "styled-components";
 import theme from "theme/theme";
 import PropTypes from "prop-types";
-// import WordToGuess from "components/WordToGuess/WordToGuess";
+import EndGameAlert from "components/EndGameAlert/EndGameAlert";
 import WordBoard from "components/WordBoard/WordBoard";
 import HangmanFigure from "components/HangmanFigure/HangmanFigure";
 import Triangle from "components/Triangle/Triangle";
 import MissedBoard from "components/MissedBoard/MissedBoard";
+import Loader from "components/Loader/Loader";
 import { addLetter } from "actions/letterActions";
 import { fetchWord } from "actions/fetchWordAction";
+import { initState } from "actions/initStateAction";
 
 const StyledWrapper = styled.div`
   width: 70vw;
@@ -20,7 +20,13 @@ const StyledWrapper = styled.div`
   position: relative;
   display: grid;
   grid-template-rows: 70% 30%;
-  /* overflow: hidden; */
+  box-shadow: 0px 0px 50px -5px black;
+  z-index: -1;
+  ${({ disable }) =>
+    disable &&
+    css`
+      opacity: 0.2;
+    `}
 `;
 const StyledInnerWrapper = styled.div`
   display: grid;
@@ -28,9 +34,16 @@ const StyledInnerWrapper = styled.div`
 `;
 
 class MainView extends React.Component {
+  initGame() {
+    this.props.fetchWord();
+    this.props.initState();
+  }
   componentDidMount() {
     this.addListeners();
-    this.props.fetchWord();
+    this.initGame();
+  }
+  componentDidUpdate() {
+    // if (!this.props.word) this.initGame();
   }
 
   addListeners = () => {
@@ -38,28 +51,40 @@ class MainView extends React.Component {
   };
 
   render() {
+    const { isGameLose, isGameWon, word } = this.props;
     return (
-      <Provider store={store}>
-        <GlobalStyle />
-        <StyledWrapper>
+      <>
+        {isGameWon && <EndGameAlert alert="Congrats, you won !" />}
+        {isGameLose && <EndGameAlert alert="You lose, try again" />}
+        <StyledWrapper disable={isGameWon || isGameLose}>
           <Triangle />
           <StyledInnerWrapper>
             <HangmanFigure />
             <MissedBoard />
           </StyledInnerWrapper>
+          {word === "" && <Loader />}
           <WordBoard />
         </StyledWrapper>
-      </Provider>
+      </>
     );
   }
 }
 
 MainView.propTypes = {
-  missedLetters: PropTypes.array.isRequired
+  isGameLose: PropTypes.bool.isRequired,
+  isGameWon: PropTypes.bool.isRequired,
+  addLetter: PropTypes.func.isRequired,
+  fetchWord: PropTypes.func.isRequired,
+  initState: PropTypes.func.isRequired,
+  word: PropTypes.string
 };
 
 const mapStateToProps = state => ({
-  missedLetters: state.hangman.missedLetters
+  isGameLose: state.hangman.isGameLose,
+  isGameWon: state.hangman.isGameWon,
+  word: state.hangman.word
 });
 
-export default connect(mapStateToProps, { addLetter, fetchWord })(MainView);
+export default connect(mapStateToProps, { addLetter, fetchWord, initState })(
+  MainView
+);

@@ -1,5 +1,4 @@
 import React from "react";
-import { connect } from "react-redux";
 import theme from "theme/theme";
 import styled, { css } from "styled-components";
 
@@ -16,6 +15,12 @@ const StyledCeil = styled.div`
   background: ${({ inactiveCeil }) => theme.inactiveCeil};
   color: ${({ activeCeil }) => theme.activeCeil};
   text-transform: uppercase;
+  ${({ invert }) =>
+    invert &&
+    css`
+      background: ${({ activeCeil }) => theme.activeCeil};
+      color: ${({ inactiveCeil }) => theme.inactiveCeil};
+    `}
   ${({ hit }) =>
     hit &&
     css`
@@ -23,12 +28,12 @@ const StyledCeil = styled.div`
     `};
 `;
 
-const Ceil = ({ children, hit }) => {
-  return <StyledCeil hit={hit}>{children}</StyledCeil>;
+const Ceil = ({ children, hit, invert }) => {
+  return (
+    <StyledCeil invert={invert} hit={hit}>
+      {children}
+    </StyledCeil>
+  );
 };
-
-const mapStateToProps = state => ({
-  word: state.letters.word
-});
 
 export default Ceil;

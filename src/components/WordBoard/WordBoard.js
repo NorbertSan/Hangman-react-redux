@@ -25,6 +25,7 @@ const WordBoard = ({ word, hittedLetters }) => {
         <StyledWrapper length={wordArr.length}>
           {wordArr.map((letter, index) => (
             <Ceil
+              invert={index >= 5}
               hit={hittedLetters.includes(letter)}
               key={`${index}:${letter}`}
             >

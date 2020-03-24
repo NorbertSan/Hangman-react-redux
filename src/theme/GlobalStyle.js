@@ -19,6 +19,7 @@ const GlobalStyle = createGlobalStyle`
         align-items:center;
         background: ${({ backgroundColorSecondary }) =>
           theme.backgroundColorSecondary};
+          color:${({ greishColor }) => theme.greishColor};
     }
 `;
 

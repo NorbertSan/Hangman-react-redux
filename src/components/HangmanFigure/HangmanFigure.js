@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import theme from "theme/theme";
+import { connect } from "react-redux";
 
 const StyledWrapper = styled.div`
   height: 400px;
@@ -218,31 +219,53 @@ const StyledRightLeg = styled.div`
   }
 `;
 
-const HangmanFigure = () => {
+const HangmanFigure = ({ missedLetters }) => {
+  const hangman = [
+    "head",
+    "torso",
+    "leftHand",
+    "rightHand",
+    "hip",
+    "leftLeg",
+    "rightLeg"
+  ];
+  const length = missedLetters.length;
+  const presentHangman = [];
+  for (let i = 0; i < length; i++) presentHangman.push(hangman[i]);
   return (
     <StyledWrapper>
       <StyledStick>
-        <StyledHead>
-          <StyledLeftEye />
-          <StyledRightEye />
-          <StyledLeftEar />
-          <StyledRightEar />
-          <StyledMouth />
-          <StyledNeck />
-        </StyledHead>
-        <StyledTorso>
-          <StyledLeftSideShirt />
-          <StyledRightSideShirt />
-          <StyledLeftHand />
-          <StyledRightHand />
-        </StyledTorso>
-        <StyledShorts>
-          <StyledLeftLeg />
-          <StyledRightLeg />
-        </StyledShorts>
+        {presentHangman.includes("head") && (
+          <StyledHead>
+            <StyledLeftEye />
+            <StyledRightEye />
+            <StyledLeftEar />
+            <StyledRightEar />
+            <StyledMouth />
+            <StyledNeck />
+          </StyledHead>
+        )}
+        {presentHangman.includes("torso") && (
+          <StyledTorso>
+            <StyledLeftSideShirt />
+            <StyledRightSideShirt />
+            {presentHangman.includes("leftHand") && <StyledLeftHand />}
+            {presentHangman.includes("rightHand") && <StyledRightHand />}
+          </StyledTorso>
+        )}
+        {presentHangman.includes("hip") && (
+          <StyledShorts>
+            {presentHangman.includes("leftLeg") && <StyledLeftLeg />}
+            {presentHangman.includes("rightLeg") && <StyledRightLeg />}
+          </StyledShorts>
+        )}
       </StyledStick>
     </StyledWrapper>
   );
 };
 
-export default HangmanFigure;
+const mapStateToProps = state => ({
+  missedLetters: state.hangman.missedLetters
+});
+
+export default connect(mapStateToProps)(HangmanFigure);
