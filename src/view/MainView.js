@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import styled, { css } from "styled-components";
 import theme from "theme/theme";
 import PropTypes from "prop-types";
+import GlobalStyle from "theme/GlobalStyle";
 import EndGameAlert from "components/EndGameAlert/EndGameAlert";
 import WordBoard from "components/WordBoard/WordBoard";
 import HangmanFigure from "components/HangmanFigure/HangmanFigure";
@@ -66,6 +67,7 @@ class MainView extends React.Component {
     const { isGameLose, isGameWon, word } = this.props;
     return (
       <>
+        <GlobalStyle />
         {isGameWon && <EndGameAlert alert="Congrats, you won !" />}
         {isGameLose && <EndGameAlert alert="You lose, try again" />}
         <StyledWrapper disable={isGameWon || isGameLose}>
